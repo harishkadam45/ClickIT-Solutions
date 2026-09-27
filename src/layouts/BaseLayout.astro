@@ -24,8 +24,36 @@ const {
   jsonLd,
 } = Astro.props;
 
-const canonicalUrl = canonical ? new URL(canonical, site.url).href : Astro.site?.href ?? site.url;
-const ogImageUrl = new URL(ogImage, site.url).href;
+/**
+ * Build an absolute URL without ever throwing.
+ *
+ * `site.url` is already normalised in `src/data/site.ts`, and this is a second
+ * line of defence: a bad env var must not be able to fail the whole prerender.
+ */
+const absoluteUrl = (path: string, base: string): string => {
+  try {
+    return new URL(path, base).href;
+  } catch {
+    return path;
+  }
+};
+
+// `site.url` is normalised in src/data/site.ts and astro.config.mjs resolves the
+// same env var, so the two agree. Astro.site is only a fallback.
+const baseUrl = (() => {
+  for (const candidate of [site.url, Astro.site?.href]) {
+    if (!candidate) continue;
+    try {
+      return new URL(candidate).href;
+    } catch {}
+  }
+  return 'https://www.clickitsolution.co.tz';
+})();
+
+const canonicalUrl = canonical
+  ? absoluteUrl(canonical, baseUrl)
+  : absoluteUrl('/', baseUrl);
+const ogImageUrl = absoluteUrl(ogImage, baseUrl);
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 
 const schemas = jsonLd
