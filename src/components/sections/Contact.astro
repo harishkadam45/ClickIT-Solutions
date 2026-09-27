@@ -1,0 +1,502 @@
+---
+import Icon from '../Icon.astro';
+import { site, telLink, waLink, TRACK } from '../../data/site';
+import { services } from '../../data/services';
+
+const wa = waLink(site.contact.waMessage);
+const endpoint = site.form.endpoint;
+
+const budgets = [
+  'Not sure yet',
+  'Under TZS 10M',
+  'TZS 10M – 30M',
+  'TZS 30M – 80M',
+  'TZS 80M+',
+];
+
+const contactMethods = [
+  'WhatsApp',
+  'Phone call',
+  'Email',
+  'Either is fine',
+];
+
+const inputBase =
+  'w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-[0.92rem] text-ink-900 transition-colors placeholder:text-ink-600/60 focus:border-jade-600 focus:outline-none';
+---
+
+<section id="contact" class="bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-10">
+      <!-- Left: details -->
+      <div class="lg:col-span-5">
+        <p class="eyebrow text-jade-700">
+          <span class="h-px w-6 bg-jade-600/40"></span>
+          Contact
+        </p>
+        <h2 class="mt-4 text-3xl leading-[1.1] font-extrabold text-ink-950 sm:text-[2.5rem]">
+          Start a project with us
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-ink-700">
+          Fill in the form and we will come back with next steps within one business day. If you
+          would rather not fill anything in, talk to us directly.
+        </p>
+
+        <div class="mt-9 space-y-3">
+          <a
+            href={wa}
+            target="_blank"
+            rel="noopener"
+            data-track={TRACK.whatsapp}
+            data-track-label="contact"
+            class="group flex items-center gap-4 rounded-2xl bg-gray-100 p-5 transition-all hover:bg-gray-200 hover:shadow-[0_18px_40px_-25px_rgba(5,8,15,0.35)]"
+          >
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-jade-600 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)]">
+              <Icon name="whatsapp" class="size-5" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-[0.7rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
+                WhatsApp
+              </span>
+              <span class="block text-[0.95rem] font-bold text-ink-900">Message us directly</span>
+              <span class="block text-[0.8rem] text-ink-600">Usually replies within the hour</span>
+            </span>
+            <Icon
+              name="arrowUpRight"
+              class="size-4 shrink-0 text-ink-500 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </a>
+
+          <a
+            href={telLink}
+            data-track={TRACK.phone}
+            data-track-label="contact"
+            class="group flex items-center gap-4 rounded-2xl bg-gray-100 p-5 transition-all hover:bg-gray-200 hover:shadow-[0_18px_40px_-25px_rgba(5,8,15,0.35)]"
+          >
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-ink-900 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)]">
+              <Icon name="phone" class="size-5" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-[0.7rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
+                Phone
+              </span>
+              <span class="block text-[0.95rem] font-bold text-ink-900">
+                {site.contact.phoneDisplay}
+              </span>
+              <span class="block text-[0.8rem] text-ink-600">Mon – Fri, 8:00 – 18:00 EAT</span>
+            </span>
+            <Icon
+              name="arrowUpRight"
+              class="size-4 shrink-0 text-ink-500 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </a>
+
+          <a
+            href={`mailto:${site.contact.email}`}
+            class="group flex items-center gap-4 rounded-2xl bg-gray-100 p-5 transition-all hover:bg-gray-200 hover:shadow-[0_18px_40px_-25px_rgba(5,8,15,0.35)]"
+          >
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-ink-900 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)]">
+              <Icon name="mail" class="size-5" />
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-[0.7rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
+                Email
+              </span>
+              <span class="block truncate text-[0.95rem] font-bold text-ink-900">
+                {site.contact.email}
+              </span>
+              <span class="block text-[0.8rem] text-ink-600">For briefs and documents</span>
+            </span>
+          </a>
+
+          <div class="flex items-center gap-4 rounded-2xl bg-gray-100 p-5">
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-ink-900 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)]">
+              <Icon name="pin" class="size-5" />
+            </span>
+            <span>
+              <span class="block text-[0.7rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
+                Office
+              </span>
+              <span class="block text-[0.95rem] font-bold text-ink-900">Dar es Salaam, Tanzania</span>
+              <span class="block text-[0.8rem] text-ink-600">Remote delivery worldwide</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="lg:col-span-7">
+        <div
+          class="rounded-3xl bg-gray-100 p-6 sm:p-9"
+        >
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-display text-xl font-extrabold text-ink-950">
+                Project enquiry
+              </h3>
+              <p class="mt-1.5 text-sm text-ink-600">
+                Fields marked <span class="text-jade-700">*</span> are required.
+              </p>
+            </div>
+            <span
+              class="hidden shrink-0 items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[0.7rem] font-semibold text-ink-600 sm:inline-flex"
+            >
+              <Icon name="shield" class="size-3.5" /> NDA on request
+            </span>
+          </div>
+
+          <form
+            id="lead-form"
+            class="mt-7 grid gap-5 sm:grid-cols-2"
+            novalidate
+            data-form-id="lead-enquiry"
+            data-track-submit={TRACK.formSubmit}
+            data-endpoint={endpoint}
+          >
+            <!-- Honeypot -->
+            <div class="hidden" aria-hidden="true">
+              <label for="company_website">Company website</label>
+              <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div>
+              <label for="fullName" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Full name <span class="text-jade-700">*</span>
+              </label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="e.g. Joseph Mwakalinga"
+                data-track-start
+                class={inputBase}
+                aria-describedby="fullName-error"
+              />
+              <p id="fullName-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="company" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Company name
+              </label>
+              <input
+                id="company"
+                name="company"
+                type="text"
+                autocomplete="organization"
+                placeholder="e.g. Bora Foods Ltd"
+                data-track-start
+                class={inputBase}
+                aria-describedby="company-error"
+              />
+              <p id="company-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="phone" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Phone number <span class="text-jade-700">*</span>
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                inputmode="tel"
+                autocomplete="tel"
+                placeholder="e.g. 0754 000 000"
+                data-track-start
+                class={inputBase}
+                aria-describedby="phone-error"
+              />
+              <p id="phone-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="email" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Email address <span class="text-jade-700">*</span>
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="you@company.co.tz"
+                data-track-start
+                class={inputBase}
+                aria-describedby="email-error"
+              />
+              <p id="email-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="service" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Service required <span class="text-jade-700">*</span>
+              </label>
+              <select
+                id="service"
+                name="service"
+                required
+                data-track-start
+                class={inputBase}
+                aria-describedby="service-error"
+              >
+                <option value="">Select a service…</option>
+                {
+                  services.map((s) => (
+                    <option value={s.name}>{s.name}</option>
+                  ))
+                }
+                <option value="Something else">Something else</option>
+              </select>
+              <p id="service-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div>
+              <label for="contactMethod" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Preferred contact method
+              </label>
+              <select id="contactMethod" name="contactMethod" class={inputBase} data-track-start>
+                {contactMethods.map((m) => <option value={m}>{m}</option>)}
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="description" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Project description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                placeholder="What is happening now, what should happen instead, and any deadline you are working to."
+                data-track-start
+                class={inputBase}
+                aria-describedby="description-error"></textarea>
+              <p id="description-error" class="mt-1.5 hidden text-[0.75rem] font-medium text-red-600"></p>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="budget" class="mb-1.5 block text-[0.82rem] font-bold text-ink-900">
+                Estimated budget <span class="font-normal text-ink-600">(optional)</span>
+              </label>
+              <select id="budget" name="budget" class={inputBase} data-track-start>
+                {budgets.map((b) => <option value={b}>{b}</option>)}
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <button
+                type="submit"
+                id="lead-submit"
+                class="group inline-flex w-full items-center justify-center gap-2.5 rounded-2xl bg-ink-950 px-6 py-4 text-[0.95rem] font-bold text-white transition-colors hover:bg-ink-800 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <span id="lead-submit-label">Send project enquiry</span>
+                <Icon
+                  name="arrowRight"
+                  class="size-4.5 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </button>
+              <p
+                id="lead-form-error"
+                class="mt-3 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[0.82rem] font-medium text-red-700"
+                role="alert"
+              >
+            </p>
+              <p class="mt-3 text-center text-[0.75rem] leading-relaxed text-ink-600">
+                We use your details only to respond to this enquiry. No mailing lists, no reselling.
+              </p>
+            </div>
+          </form>
+
+          <!-- Success state -->
+          <div
+            id="lead-success"
+            class="hidden flex-col items-center py-10 text-center"
+            role="status"
+            aria-live="polite"
+          >
+            <span class="grid size-16 place-items-center rounded-2xl bg-gray-100 text-jade-600">
+              <Icon name="check" class="size-8" />
+            </span>
+            <h3 class="mt-6 font-display text-2xl font-extrabold text-ink-950">
+              Enquiry received
+            </h3>
+            <p class="mt-3 max-w-md text-[0.95rem] leading-relaxed text-ink-700">
+              Thank you. We have your details and will respond within one business day. If it is
+              urgent, message us on WhatsApp and we will pick it up sooner.
+            </p>
+            <div class="mt-7 flex flex-col gap-2.5 sm:flex-row">
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener"
+                data-track={TRACK.whatsapp}
+                data-track-label="success-state"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-jade-500 px-5 py-3 text-sm font-bold text-ink-950 transition-colors hover:bg-jade-400"
+              >
+                <Icon name="whatsapp" class="size-4" /> Message on WhatsApp
+              </a>
+              <button
+                type="button"
+                id="lead-reset"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-ink-900"
+              >
+                Send another enquiry
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {
+          !endpoint && (
+            <p class="mt-4 rounded-xl border border-signal-500/30 bg-signal-400/8 px-4 py-3 text-[0.78rem] text-ink-700">
+              <span class="font-bold">Demo mode:</span> this form validates and confirms
+              client-side. Set <code class="font-mono text-[0.72rem]">PUBLIC_FORM_ENDPOINT</code>
+              to connect it to your CRM or inbox before launch.
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  const success = document.getElementById('lead-success');
+  const formError = document.getElementById('lead-form-error');
+  const submitBtn = document.getElementById('lead-submit') as HTMLButtonElement | null;
+  const submitLabel = document.getElementById('lead-submit-label');
+  const resetBtn = document.getElementById('lead-reset');
+
+  const track = (name: string, params?: Record<string, unknown>) => {
+    (window as any).clickitTrack?.(name, params);
+  };
+
+  const rules: Record<string, (v: string) => string> = {
+    fullName: (v) => (v.trim().length >= 2 ? '' : 'Please enter your full name.'),
+    company: () => '',
+    phone: (v) => {
+      const digits = v.replace(/[^\d]/g, '');
+      if (digits.length === 0) return 'Please enter a phone number we can reach you on.';
+      if (digits.length < 9) return 'That phone number looks too short.';
+      return '';
+    },
+    email: (v) =>
+      /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim()) ? '' : 'Please enter a valid email address.',
+    service: (v) => (v ? '' : 'Please select the service you need.'),
+    description: (v) =>
+      v.trim().length > 0 && v.trim().length < 10 ? 'Please add a little more detail.' : '',
+  };
+
+  const fieldWrapper = (name: string) => form?.querySelector(`[name="${name}"]`) as
+    | HTMLInputElement
+    | HTMLSelectElement
+    | HTMLTextAreaElement
+    | null;
+
+  const showError = (name: string, msg: string) => {
+    const el = fieldWrapper(name);
+    const p = document.getElementById(`${name}-error`);
+    if (!el || !p) return;
+    p.textContent = msg;
+    p.classList.toggle('hidden', !msg);
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    el.classList.toggle('border-red-400', Boolean(msg));
+    el.classList.toggle('border-gray-200', !msg);
+  };
+
+  const validateField = (name: string) => {
+    const el = fieldWrapper(name);
+    if (!el || !rules[name]) return true;
+    const msg = rules[name](el.value);
+    showError(name, msg);
+    return !msg;
+  };
+
+  form?.querySelectorAll('input, select, textarea').forEach((el) => {
+    el.addEventListener('blur', () => validateField(el.getAttribute('name') || ''));
+    el.addEventListener('input', () => {
+      if (el.getAttribute('aria-invalid') === 'true') validateField(el.getAttribute('name') || '');
+    });
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (formError) formError.classList.add('hidden');
+
+    const names = Object.keys(rules);
+    const invalid = names.filter((n) => !validateField(n));
+
+    if (invalid.length) {
+      fieldWrapper(invalid[0])?.focus();
+      if (formError) {
+        formError.textContent = 'Please correct the highlighted fields and try again.';
+        formError.classList.remove('hidden');
+      }
+      track('lead_form_error', { reason: 'validation', fields: invalid.join(',') });
+      return;
+    }
+
+    // Honeypot = bot
+    const honey = form.querySelector('[name="company_website"]') as HTMLInputElement;
+    if (honey && honey.value) {
+      success?.classList.remove('hidden');
+      form.classList.add('hidden');
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    const endpoint = form.getAttribute('data-endpoint') || '';
+    const params = { form_id: 'lead-enquiry', service: data.service, budget: data.budget };
+
+    if (submitBtn && submitLabel) {
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending…';
+    }
+
+    try {
+      if (endpoint) {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      } else {
+        await new Promise((r) => setTimeout(r, 700));
+        console.info('[ClickIT demo] lead payload', data);
+      }
+
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+      success?.classList.add('flex');
+      track('lead_form_success', params);
+    } catch {
+      track('lead_form_error', { reason: 'network' });
+      if (formError) {
+        formError.textContent =
+          'Something went wrong sending your enquiry. Please message us on WhatsApp or call us instead.';
+        formError.classList.remove('hidden');
+      }
+    } finally {
+      if (submitBtn && submitLabel) {
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Send project enquiry';
+      }
+    }
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    form?.reset();
+    form?.querySelectorAll('[aria-invalid]').forEach((el) => el.setAttribute('aria-invalid', 'false'));
+    form?.querySelectorAll('p[id$="-error"]').forEach((el) => el.classList.add('hidden'));
+    success?.classList.add('hidden');
+    success?.classList.remove('flex');
+    form.classList.remove('hidden');
+    form.querySelector('input:not([tabindex="-1"])')?.focus();
+  });
+</script>

@@ -1,0 +1,134 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeader from '../SectionHeader.astro';
+import { differentiators, process, techStack } from '../../data/content';
+---
+
+<section id="why-clickit" class="relative overflow-hidden bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-5">
+        <SectionHeader
+          eyebrow="Why ClickIT"
+          title="Senior engineers. Direct access. No handover to a junior team."
+          lead="When you are committing to a serious software project, who actually does the work matters more than the slide deck."
+        />
+
+        <div class="mt-9 rounded-2xl bg-gray-100 p-7">
+          <Icon name="quote" class="size-7 text-jade-500" />
+          <p class="mt-4 text-[0.95rem] leading-relaxed text-ink-800">
+            Most of our engagements begin with the same sentence: <em
+              >“we were told it could be done, but nobody could show us how.”</em
+            >
+          </p>
+          <p class="mt-4 text-[0.85rem] leading-relaxed text-ink-600">
+            Our first job is to make the approach concrete — a written scope, a working prototype
+            and a real date. If software is not the right answer, we will say so before you spend
+            anything.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+        {
+          differentiators.map((d, i) => (
+            <article class="card-hover group relative overflow-hidden rounded-2xl bg-gray-100 p-6 hover:bg-gray-200 hover:shadow-[0_20px_45px_-25px_rgba(5,8,15,0.35)]">
+              <div class="flex items-start gap-4">
+                <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-ink-900 font-mono text-[0.7rem] font-bold text-jade-400">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 class="font-display text-[0.98rem] leading-snug font-extrabold text-ink-950">
+                    {d.title}
+                  </h3>
+                  <p class="mt-2 text-[0.86rem] leading-relaxed text-ink-700">{d.body}</p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="relative overflow-hidden bg-white py-20 text-ink-950 sm:py-28">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div
+      class="absolute top-1/3 -left-40 size-[36rem] rounded-full bg-jade-500/8 blur-[130px]"
+    >
+    </div>
+  </div>
+
+  <div class="container-page relative">
+    <SectionHeader
+      eyebrow="Our development process"
+      title="A delivery process designed to remove risk, not add ceremony."
+      lead="Every phase ends with something you can review. No phase ends with a slide."
+    />
+
+    <ol class="mt-14 grid gap-4 lg:grid-cols-5">
+      {
+        process.map((p) => (
+          <li class="group relative flex flex-col rounded-2xl bg-gray-100 p-7 transition-colors duration-300 hover:bg-gray-200">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[0.7rem] font-bold tracking-widest text-jade-700">
+                {p.step}
+              </span>
+              <Icon
+                name="arrowUpRight"
+                class="size-4 text-ink-500 transition-colors group-hover:text-jade-600"
+              />
+            </div>
+            <h3 class="mt-5 font-display text-[1rem] leading-snug font-extrabold text-ink-950">
+              {p.title}
+            </h3>
+            <p class="mt-3 text-[0.85rem] leading-relaxed text-ink-700">{p.body}</p>
+            <p class="mt-5 border-t border-gray-300/70 pt-4 text-[0.72rem] leading-snug text-ink-600">
+              <span class="font-bold text-jade-700">Deliverable — </span>
+              {p.deliverable}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<section id="expertise" class="bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-4">
+        <SectionHeader
+          eyebrow="Technology & expertise"
+          title="Chosen for maintainability, not for the logo."
+          lead="A deliberately small, current stack your team can maintain after we hand over — no abandoned framework, no proprietary lock-in."
+        />
+        <p class="mt-6 text-[0.88rem] leading-relaxed text-ink-600">
+          We will also work inside your existing stack when that is the right call. The stack serves
+          the project; it is not the project.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
+        {
+          techStack.map((g) => (
+            <div class="rounded-2xl bg-gray-100 p-6">
+              <p class="font-display text-[0.7rem] font-bold tracking-[0.14em] text-jade-700 uppercase">
+                {g.group}
+              </p>
+              <ul class="mt-4 space-y-2">
+                {g.items.map((it) => (
+                  <li class="flex items-center gap-2 text-[0.87rem] text-ink-800">
+                    <span class="size-1.5 rounded-full bg-ink-900/20" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

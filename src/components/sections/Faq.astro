@@ -1,0 +1,73 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeader from '../SectionHeader.astro';
+import { faqs } from '../../data/content';
+import { site, waLink, TRACK } from '../../data/site';
+
+const wa = waLink(`Hi ClickIT Solutions, I have a question about your services.`);
+---
+
+<section id="faq" class="bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-4">
+        <SectionHeader
+          eyebrow="FAQ"
+          title="The questions every serious buyer asks us."
+          lead="If yours is not here, ask directly — you will get a straight answer, not a sales script."
+        />
+        <a
+          href={wa}
+          target="_blank"
+          rel="noopener"
+          data-track={TRACK.whatsapp}
+          data-track-label="faq"
+          class="mt-8 inline-flex items-center gap-2.5 rounded-2xl bg-ink-950 px-5 py-3.5 text-sm font-bold text-white transition-colors hover:bg-ink-800"
+        >
+          <Icon name="whatsapp" class="size-4.5 text-jade-400" />
+          Ask us on WhatsApp
+        </a>
+        <a
+          href={`tel:${site.contact.phoneE164}`}
+          data-track={TRACK.phone}
+          data-track-label="faq"
+          class="mt-4 flex items-center gap-2 text-sm font-semibold text-ink-700 transition-colors hover:text-ink-950"
+        >
+          <Icon name="phone" class="size-4" /> {site.contact.phoneDisplay}
+        </a>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="divide-y divide-gray-200 border-y border-gray-200">
+          {
+            faqs.map((f) => (
+              <details class="group">
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-5 marker:hidden">
+                  <h3 class="font-display text-[1rem] leading-snug font-bold text-ink-950 transition-colors group-hover:text-jade-700 sm:text-[1.05rem]">
+                    {f.q}
+                  </h3>
+                  <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg border border-gray-300 bg-gray-100 text-ink-600 transition-all duration-300 group-hover:border-jade-500 group-hover:text-jade-700 group-open:rotate-45">
+                    <svg
+                      viewBox="0 0 24 24"
+                      class="size-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </span>
+                </summary>
+                <p class="max-w-2xl pr-10 pb-6 text-[0.92rem] leading-relaxed text-ink-700">
+                  {f.a}
+                </p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

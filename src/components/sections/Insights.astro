@@ -1,0 +1,104 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeader from '../SectionHeader.astro';
+
+const posts = [
+  {
+    cat: 'Business process',
+    title: 'What it actually costs to run a business on spreadsheets',
+    excerpt:
+      'The hidden cost is rarely the licence fee. It is re-entering the same data four times and the decisions made without current numbers.',
+    read: '6 min read',
+  },
+  {
+    cat: 'Choosing a vendor',
+    title: 'Nine questions to ask before you sign a software development contract',
+    excerpt:
+      'Ownership of code, hosting, data export, support terms and who actually does the work — the questions that decide whether year two is painful.',
+    read: '7 min read',
+  },
+  {
+    cat: 'Technology',
+    title: 'POS, ERP or a custom system: how to decide without overbuilding',
+    excerpt:
+      'A practical framework for Tanzanian SMEs weighing off-the-shelf tools against a system built for your specific operation.',
+    read: '5 min read',
+  },
+];
+
+const topics = [
+  'Business automation',
+  'Choosing software',
+  'System design',
+  'Digital strategy',
+  'Product updates',
+];
+---
+
+<section id="insights" class="bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeader
+        eyebrow="Insights"
+        title="Written for the people who sign the invoice."
+        lead="Practical guides on business automation, systems and technology decisions. No trend pieces, no vendor-speak."
+      />
+      <span
+        class="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-gray-100 px-4 py-2 text-[0.75rem] font-semibold text-ink-600 lg:self-auto"
+      >
+        <Icon name="sparkle" class="size-3.5 text-jade-600" />
+        Editorial plan — first articles in production
+      </span>
+    </div>
+
+    <div class="mt-14 grid gap-6 lg:grid-cols-3">
+      {
+        posts.map((p) => (
+          <article class="card-hover group flex flex-col overflow-hidden rounded-2xl bg-gray-100 transition-all hover:bg-gray-200 hover:shadow-[0_26px_55px_-30px_rgba(5,8,15,0.4)]">
+            <div class="relative aspect-16/9 overflow-hidden bg-ink-950">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-jade-500/22 via-ink-900 to-azure-500/18"
+                aria-hidden="true"
+              />
+              <span class="absolute top-5 left-5 rounded-full bg-white/10 px-3 py-1.5 text-[0.7rem] font-bold text-white backdrop-blur">
+                {p.cat}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-7">
+              <h3 class="font-display text-[1.05rem] leading-snug font-extrabold text-ink-950">
+                {p.title}
+              </h3>
+              <p class="mt-3 text-[0.88rem] leading-relaxed text-ink-700">{p.excerpt}</p>
+              <div class="mt-6 flex items-center justify-between border-t border-gray-300/70 pt-5">
+                <span class="text-[0.75rem] font-semibold text-ink-500">{p.read}</span>
+                <a
+                  href="#contact"
+                  class="inline-flex items-center gap-1.5 text-[0.83rem] font-bold text-ink-900 transition-colors hover:text-jade-700"
+                >
+                  Read
+                  <Icon
+                    name="arrowRight"
+                    class="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-2.5">
+      <span class="text-[0.75rem] font-bold tracking-[0.14em] text-ink-500 uppercase">
+        Planned categories
+      </span>
+      {
+        topics.map((t) => (
+          <span class="rounded-full bg-gray-100 px-3.5 py-1.5 text-[0.78rem] font-semibold text-ink-700">
+            {t}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>

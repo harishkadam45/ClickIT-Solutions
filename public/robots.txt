@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# No utility or staging areas should ever be indexed
+Disallow: /api/
+Disallow: /_astro-dev/
+Disallow: /*?utm_
+Disallow: /*?gclid
+
+Sitemap: https://www.clickitsolution.co.tz/sitemap-index.xml

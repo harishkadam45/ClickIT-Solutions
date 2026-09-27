@@ -1,0 +1,104 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeader from '../SectionHeader.astro';
+import { services } from '../../data/services';
+import { site, waLink, TRACK } from '../../data/site';
+
+const wa = waLink(`Hi ClickIT Solutions, I'd like a quote for a software project.`);
+---
+
+<section id="services" class="relative overflow-hidden bg-white py-20 text-ink-950 sm:py-28">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="absolute top-0 right-1/4 size-[38rem] rounded-full bg-jade-500/8 blur-[130px]">
+    </div>
+    <div class="absolute bottom-0 -left-20 size-[30rem] rounded-full bg-azure-400/8 blur-[130px]">
+    </div>
+  </div>
+
+  <div class="container-page relative">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeader
+        eyebrow="Our services"
+        title="Nine service lines. One accountable team."
+        lead="Each of these runs as a focused engagement with its own process, specialists and delivery cadence — so you get the depth of a specialist firm without managing five vendors."
+      />
+      <a
+        href="#contact"
+        data-track={TRACK.consultation}
+        data-track-label="services-header"
+        class="inline-flex shrink-0 items-center gap-2 self-start rounded-2xl bg-gray-100 px-5 py-3.5 text-sm font-bold text-ink-900 transition-colors hover:bg-gray-200 lg:self-auto"
+      >
+        Not sure which one? Talk to us
+        <Icon name="arrowUpRight" class="size-4" />
+      </a>
+    </div>
+
+    <div class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((s, i) => (
+          <article class="group relative flex flex-col overflow-hidden rounded-2xl bg-gray-100 p-7 transition-all duration-400 hover:-translate-y-1.5 hover:bg-gray-200 hover:shadow-[0_24px_50px_-30px_rgba(5,8,15,0.35)]">
+            <div
+              class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-jade-500/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              aria-hidden="true"
+            />
+            <div class="flex items-start justify-between gap-4">
+              <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-jade-600 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)] transition-colors group-hover:bg-jade-500 group-hover:text-white">
+                <Icon name={s.icon} class="size-5" />
+              </span>
+              <span class="font-mono text-[0.68rem] text-ink-500">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+
+            <h3 class="mt-5 font-display text-[1.1rem] leading-snug font-extrabold text-ink-950">
+              {s.name}
+            </h3>
+            <p class="mt-2 text-[0.9rem] leading-relaxed text-ink-700">{s.blurb}</p>
+
+            <ul class="mt-5 space-y-2 border-t border-gray-300/70 pt-5">
+              {s.outcomes.map((o) => (
+                <li class="flex items-start gap-2 text-[0.83rem] text-ink-800">
+                  <Icon name="check" class="mt-0.5 size-3.5 shrink-0 text-jade-600" />
+                  <span>{o}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 flex items-center gap-4 pt-1">
+              <a
+                href="#contact"
+                data-track={TRACK.consultation}
+                data-track-label={`service-${s.slug}`}
+                class="inline-flex items-center gap-1.5 text-[0.83rem] font-bold text-jade-700 transition-colors hover:text-jade-600"
+              >
+                Get a quote
+                <Icon
+                  name="arrowRight"
+                  class="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </a>
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener"
+                data-track={TRACK.whatsapp}
+                data-track-label={`service-${s.slug}`}
+                class="text-[0.78rem] font-semibold text-ink-500 transition-colors hover:text-ink-800"
+              >
+                or ask on WhatsApp
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-sm text-ink-600">
+      Each service has a dedicated landing page optimised for search and Google Ads —{' '}
+      <a href="#contact" class="font-semibold text-jade-700 underline underline-offset-4">
+        ask us for the full scope
+      </a>
+      .
+    </p>
+  </div>
+</section>

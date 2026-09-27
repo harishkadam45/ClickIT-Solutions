@@ -1,0 +1,14 @@
+{
+  "name": "ClickIT Solutions Tanzania",
+  "short_name": "ClickIT",
+  "description": "Custom software, mobile apps and business automation systems built in Dar es Salaam, Tanzania.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "en-TZ",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

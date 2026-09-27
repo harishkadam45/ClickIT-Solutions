@@ -1,0 +1,187 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import jakartaLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-image.png',
+  ogType = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const canonicalUrl = canonical ? new URL(canonical, site.url).href : Astro.site?.href ?? site.url;
+const ogImageUrl = new URL(ogImage, site.url).href;
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+
+const schemas = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd.map((s) => JSON.stringify(s))
+    : [JSON.stringify(jsonLd)]
+  : [];
+
+const { gaId, gtmId, gadsId, dataLayerName } = site.analytics;
+const hasTracking = Boolean(gaId || gtmId);
+---
+
+<!doctype html>
+<html lang="en-TZ" class="scroll-pt-24">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+      )
+    }
+
+    <meta name="author" content={site.name} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
+    <meta property="og:locale" content={site.locale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={`${site.name} — ${site.tagline}`} />
+    {
+      site.social.linkedin && (
+        <link rel="me" href={site.social.linkedin} />
+      )
+    }
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jakartaLatin} as="font" type="font/woff2" crossorigin />
+
+    {
+      schemas.map((s) => (
+        <script type="application/ld+json" set:html={s} />
+      ))
+    }
+
+    {hasTracking && <slot name="analytics" />}
+  </head>
+  <body class="bg-white font-sans text-ink-900 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-ink-900 focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
+    >
+      Skip to main content
+    </a>
+    <slot />
+  </body>
+</html>
+
+<script is:inline define:vars={{ dataLayerName }}>
+  window.dataLayer = window.dataLayer || [];
+  window.clickitTrack = function (event, params) {
+    window[dataLayerName].push({
+      event: event,
+      ...(params || {}),
+      page_path: window.location.pathname,
+    });
+  };
+  // Core Web Vitals + outbound click collection for GA4 / Google Ads.
+  window.clickitTrack('page_view', { page_title: document.title });
+  document.addEventListener('click', function (e) {
+    var el = e.target instanceof Element ? e.target.closest('[data-track]') : null;
+    if (!el) return;
+    window.clickitTrack(el.getAttribute('data-track'), {
+      label: el.getAttribute('data-track-label') || undefined,
+      destination: el.getAttribute('href') || undefined,
+    });
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (f && f.matches('[data-track-submit]')) {
+      window.clickitTrack(f.getAttribute('data-track-submit'), {
+        form_id: f.getAttribute('data-form-id') || undefined,
+      });
+    }
+  });
+  document.addEventListener('focusin', function (e) {
+    if (e.target instanceof Element && e.target.matches('[data-track-start]')) {
+      window.clickitTrack('lead_form_start', { field: e.target.getAttribute('name') || undefined });
+    }
+  });
+</script>
+
+{hasTracking && (
+  <>
+    {gtmId && (
+      <script
+        is:inline
+        define:vars={{ gtmId, dataLayerName }}
+        src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
+        async
+      />
+    )}
+    {!gtmId && gaId && (
+      <>
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        />
+        <script
+          is:inline
+          define:vars={{ gaId, gadsId, dataLayerName }}
+        >
+          window.gtag =
+            window.gtag ||
+            function () {
+              (window.gtag.q = window.gtag.q || []).push(arguments);
+            };
+          window.gtag('js', new Date());
+          window.gtag('config', gaId, { send_page_view: true });
+          if (gadsId) window.gtag('config', gadsId);
+        </script>
+      </>
+    )}
+  </>
+)}

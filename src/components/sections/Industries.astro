@@ -1,0 +1,86 @@
+---
+import Icon from '../Icon.astro';
+import SectionHeader from '../SectionHeader.astro';
+import { industries } from '../../data/content';
+import { site, waLink, TRACK } from '../../data/site';
+
+const wa = waLink(`Hi ClickIT Solutions, we'd like to discuss a system for our business.`);
+
+const iconFor: Record<string, string> = {
+  'smes': 'bolt',
+  'corporates': 'layers',
+  'education': 'school',
+  'retail': 'pos',
+  'logistics': 'logistics',
+  'financial-services': 'chart',
+};
+---
+
+<section id="industries" class="relative bg-white py-20 sm:py-28">
+  <div class="container-page">
+    <SectionHeader
+      eyebrow="Industries we serve"
+      title="We speak your industry's language."
+      lead="Domain experience changes the questions. We build for the way your sector is actually regulated, funded and run — then remove the manual load."
+    />
+
+    <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        industries.map((ind) => (
+          <article class="card-hover group relative flex flex-col rounded-2xl bg-gray-100 p-7 hover:bg-gray-200 hover:shadow-[0_24px_50px_-28px_rgba(5,8,15,0.35)]">
+            <span class="grid size-10 place-items-center rounded-xl bg-white text-ink-800 shadow-[0_2px_10px_-4px_rgba(5,8,15,0.25)] transition-colors group-hover:text-jade-700">
+              <Icon name={iconFor[ind.slug] ?? 'layers'} class="size-5" />
+            </span>
+
+            <h3 class="mt-5 font-display text-[1.05rem] font-extrabold text-ink-950">{ind.name}</h3>
+
+            <p class="mt-4 text-[0.8rem] font-bold tracking-wide text-ink-500 uppercase">
+              The problem
+            </p>
+            <p class="mt-1.5 text-[0.9rem] leading-relaxed text-ink-700">{ind.problem}</p>
+
+            <p class="mt-4 text-[0.8rem] font-bold tracking-wide text-jade-700 uppercase">
+              What we build
+            </p>
+            <p class="mt-1.5 text-[0.9rem] leading-relaxed text-ink-700">{ind.built}</p>
+
+            <a
+              href="#contact"
+              data-track={TRACK.consultation}
+              data-track-label={`industry-${ind.slug}`}
+              class="mt-6 inline-flex items-center gap-1.5 text-[0.83rem] font-bold text-ink-900 transition-colors hover:text-jade-700"
+            >
+              Discuss your sector
+              <Icon name="arrowRight" class="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col items-start gap-6 rounded-3xl bg-gray-100 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10"
+    >
+      <div>
+        <h3 class="font-display text-xl font-extrabold text-ink-950 sm:text-2xl">
+          Don't see your sector listed?
+        </h3>
+        <p class="mt-2 max-w-xl text-[0.95rem] leading-relaxed text-ink-700">
+          The list is not exhaustive — it is simply the sectors we have delivered in most often.
+          Send us your situation and we will tell you honestly whether software is the right answer.
+        </p>
+      </div>
+      <a
+        href={wa}
+        target="_blank"
+        rel="noopener"
+        data-track={TRACK.whatsapp}
+        data-track-label="industries"
+        class="inline-flex shrink-0 items-center gap-2.5 rounded-2xl bg-ink-950 px-6 py-4 text-sm font-bold text-white transition-colors hover:bg-ink-800"
+      >
+        <Icon name="whatsapp" class="size-4.5 text-jade-400" />
+        Describe your business
+      </a>
+    </div>
+  </div>
+</section>

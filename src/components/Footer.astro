@@ -1,0 +1,159 @@
+---
+import Icon from './Icon.astro';
+import { site, telLink, waLink, TRACK } from '../data/site';
+import { services } from '../data/services';
+import { industries } from '../data/content';
+
+const year = new Date().getFullYear();
+const wa = waLink(site.contact.waMessage);
+
+const company = [
+  { label: 'About ClickIT', href: '#why-clickit' },
+  { label: 'Case Studies', href: '#case-studies' },
+  { label: 'Our Process', href: '#process' },
+  { label: 'Insights', href: '#insights' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<footer class="relative overflow-hidden border-t border-gray-200 bg-white text-ink-700">
+  <div class="container-page relative">
+    <div class="grid gap-12 border-b border-gray-200 py-16 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-4">
+        <a href="#top" class="flex items-center gap-2.5" aria-label={`${site.name} home`}>
+          <span class="grid size-9 place-items-center rounded-xl bg-ink-950 text-jade-400">
+            <svg viewBox="0 0 24 24" class="size-5" fill="none" aria-hidden="true">
+              <path
+                d="M5 4.5v15h14"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+              <circle cx="17" cy="8" r="2.4" fill="currentColor"></circle>
+            </svg>
+          </span>
+          <span class="font-display text-lg font-extrabold tracking-tight text-ink-950">
+            ClickIT<span class="text-jade-700"> Solutions</span>
+          </span>
+        </a>
+        <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-ink-600">
+          {site.description}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          <a
+            href={wa}
+            target="_blank"
+            rel="noopener"
+            data-track={TRACK.whatsapp}
+            data-track-label="footer"
+            class="inline-flex items-center gap-2 rounded-xl bg-ink-950 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-ink-800"
+          >
+            <Icon name="whatsapp" class="size-4 text-jade-400" /> WhatsApp
+          </a>
+          <a
+            href={telLink}
+            data-track={TRACK.phone}
+            data-track-label="footer"
+            class="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-4 py-2.5 text-sm font-semibold text-ink-900 transition-colors hover:bg-gray-200"
+          >
+            <Icon name="phone" class="size-4" /> {site.contact.phoneDisplay}
+          </a>
+        </div>
+      </div>
+
+      <div class="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
+        <div>
+          <h2 class="font-display text-xs font-bold tracking-[0.16em] text-ink-950 uppercase">
+            Services
+          </h2>
+          <ul class="mt-5 space-y-2.5">
+            {
+              services.slice(0, 5).map((s) => (
+                <li>
+                  <a
+                    href="#services"
+                    class="text-sm text-ink-600 transition-colors hover:text-jade-700"
+                  >
+                    {s.name}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a
+                href="#services"
+                class="inline-flex items-center gap-1 text-sm font-bold text-jade-700 transition-colors hover:text-jade-600"
+              >
+                All services <Icon name="arrowRight" class="size-3.5" />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xs font-bold tracking-[0.16em] text-ink-950 uppercase">
+            Industries
+          </h2>
+          <ul class="mt-5 space-y-2.5">
+            {
+              industries.slice(0, 5).map((i) => (
+                <li>
+                  <a
+                    href="#industries"
+                    class="text-sm text-ink-600 transition-colors hover:text-jade-700"
+                  >
+                    {i.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-display text-xs font-bold tracking-[0.16em] text-ink-950 uppercase">
+            Company
+          </h2>
+          <ul class="mt-5 space-y-2.5">
+            {
+              company.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="text-sm text-ink-600 transition-colors hover:text-jade-700"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="mt-6 space-y-2 text-sm text-ink-600">
+            <p class="flex items-center gap-2">
+              <Icon name="pin" class="size-4 shrink-0 text-jade-600" /> Dar es Salaam, Tanzania
+            </p>
+            <a
+              href={`mailto:${site.contact.email}`}
+              class="flex items-center gap-2 transition-colors hover:text-jade-700"
+            >
+              <Icon name="mail" class="size-4 shrink-0 text-jade-600" /> {site.contact.email}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col gap-4 py-7 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <a href="#" class="transition-colors hover:text-ink-800">Privacy Policy</a>
+        <a href="#" class="transition-colors hover:text-ink-800">Terms of Service</a>
+        <span class="inline-flex items-center gap-1.5">
+          <span class="size-1.5 rounded-full bg-jade-500"></span> Built in Dar es Salaam
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
